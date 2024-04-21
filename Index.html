@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Form</title>
-     <link rel="stylesheet" href="payment.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Form</title>
 </head>
-
-   
-<body> 
-        <div class="container">
-        <div class="navbar">
+         <div class="navbar">
             <a href="https://binalot.github.io/HMP/Homepage.html">
           <img src="logo11.jpg" class="logo">
           
         </div>
-    <h2>Payment Form</h2>
-  </hr>
-    <div class="input_group">
+<body>
+<h2>Payment Form</h2>
+    <div class="wrapper">
+        <h2>Payment Form</h2>
+        <hr>
+        <form action="https://api.web3forms.com/submit" method="POST">
+            
+            <div class="input_group">
                 <div class="input_box">
                     <input type="hidden" name="access_key" value="6346860b-6f8c-4019-b39c-1596a6bc424a">
                     <input type="text" name="Full Name" placeholder="Full Name" class="contact-inputs" required>
                     
                 </div>
-                </div>
+               
+            </div>
             <div class="input_group">
                 <div class="input_box">
                     <input type="text" name="contact number" placeholder="Contact Number" class="contact-inputs" required>
@@ -41,38 +42,57 @@
                     <input type="text" name="district" placeholder="District" class="contact-inputs" required>
                     
                 </div>
-            </div>
-            
-                <li><a href="https://binalot.github.io/Terms/termscon.html">I agree to the Terms & Condition</a></li>
-    <form action="payment_process.php" method="post">
-        <label for="payment_method">Select Payment Method:</label>
-        <select name="payment_method" id="payment_method">
-            <option value="gcash">GCash</option>
-            <option value="cod">Cash on Delivery (COD)</option>
-        </select>
-        <br><br>
-        <label for="reference_number">Reference Number:</label>
-        <input type="text" id="reference_number" name="reference_number" required>
-        <br><br>
-        
-                        </div>
-            </div>
+<form action="#" method="post">
+  <label for="amount">Amount:</label><br>
+  <input type="text" id="amount" name="amount"><br><br>
+  <button type="submit" name="generate">Generate Reference</button>
+                </div>
             
             <h4>Gcash Name: Lyka Monreal</h4>
             <h5>Number: 09453500095</h5>
             <div class="input_group">
                 <div class="input_box">
                     <input type="tel" name="Reference number" class="name" placeholder="Reference Number (Leave it blank if you chose COD)" class="gcash-inputs">
+                    
+                </div>
+            </div>
+            <div class="input_group">
+                <div class="input_box">
+                    <input type="tel" name="name of gcash" class="name" placeholder="Name of Gcash (Leave it blank if you chose COD)" class="gcash-inputs">
+                    
+                </div>
+            </div>
             
            
             <div class="input_group">
                 <div class="input_box">
                     <span></span>
                     <input type="submit" value="Send">
-                </form>
-       </div>
+                </div>
     </div>
+</form>
 
-    <script src="payment.js"></script>
+<div id="reference">
+  <!-- Reference numbers will appear here -->
+</div>
+
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var amount = document.getElementById('amount').value;
+  generateReference(amount);
+});
+
+function generateReference(amount) {
+  // Generate reference number for GCash
+  var gcashRef = "GC-" + Math.floor(Math.random() * 1000000);
+  
+  // Generate reference number for COD
+  var codRef = "COD-" + Math.floor(Math.random() * 1000000);
+
+  // Display reference numbers
+  document.getElementById('reference').innerHTML = "<p>GCash Reference: " + gcashRef + "</p><p>COD Reference: " + codRef + "</p>";
+}
+</script>
 </body>
 </html>
