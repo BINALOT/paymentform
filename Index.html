@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+    <script>
+function generateReferenceNumber() {
+  // Generate a random reference number
+  var referenceNumber = Math.floor(Math.random() * 1000000000);
+  document.getElementById("referenceNumber").innerHTML = referenceNumber;
+}
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +65,8 @@
                 <div class="input_box">
                     <h4>MOP</h4>
                     <input type="radio" name="gender" class="radio" id="b1" checked>
-                    <label for="b1"><p><a href="https://play.google.com/store/apps/details?id=com.globe.gcash.android" target="_blank">GCASH</a></p></label>
+                    <label for="b1"><p><button onclick="generateReferenceNumber()">Generate Reference Number</button>
+<p>Reference Number: <span id="referenceNumber"></span></p></label>
                     <input type="radio" name="gender" class="radio" id="b2">
                     <label for="b2">Cash on delivery</label>
                 </div>
