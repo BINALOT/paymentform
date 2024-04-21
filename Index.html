@@ -1,80 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GCash Payment</title>
+  <title>Payment Form</title>
 </head>
 <body>
-<h2>GCash Payment Details</h2>
-<form id="paymentForm">
-  <label for="firstName">First Name:</label><br>
-  <input type="text" id="firstName" name="firstName" required><br><br>
+
+<h2>Payment Details</h2>
+
+<form action="/submit_payment" method="post">
+  <label for="fname">First Name:</label><br>
+  <input type="text" id="fname" name="fname" required><br><br>
   
-  <label for="lastName">Last Name:</label><br>
-  <input type="text" id="lastName" name="lastName" required><br><br>
+  <label for="lname">Last Name:</label><br>
+  <input type="text" id="lname" name="lname" required><br><br>
   
-  <label for="contactNumber">Contact Number:</label><br>
-  <input type="tel" id="contactNumber" name="contactNumber" required pattern="[0-9]{11}" placeholder="11-digit phone number"><br><br>
+  <label for="contact">Contact Number:</label><br>
+  <input type="tel" id="contact" name="contact" required><br><br>
   
-  <label for="gcashNumber">GCash Number:</label><br>
-  <input type="text" id="gcashNumber" name="gcashNumber" required><br><br>
+  <label for="payment_method">Payment Method:</label><br>
+  <select id="payment_method" name="payment_method" required>
+    <option value="cod">Cash on Delivery</option>
+    <option value="gcash">GCash</option>
+  </select><br><br>
   
-  <label for="referenceNumber">Reference Number:</label><br>
-  <input type="text" id="referenceNumber" name="referenceNumber" required><br><br>
+  <div id="gcash_reference" style="display: none;">
+    <label for="reference_number">GCash Reference Number:</label><br>
+    <input type="text" id="reference_number" name="reference_number"><br><br>
+  </div>
   
   <button type="submit">Submit Payment</button>
 </form>
 
 <script>
-document.getElementById("paymentForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-  // Collect form data
-  var firstName = document.getElementById("firstName").value;
-  var lastName = document.getElementById("lastName").value;
-  var contactNumber = document.getElementById("contactNumber").value;
-  var gcashNumber = document.getElementById("gcashNumber").value;
-  var referenceNumber = document.getElementById("referenceNumber").value;
-  
-  // Send data to GCash processing backend
-  // Example: Use fetch API to send data to GCash endpoint
-  fetch('gcash_payment_endpoint', {
-    method: 'POST',
-    body: JSON.stringify({
-      firstName: firstName,
-      lastName: lastName,
-      contactNumber: contactNumber,
-      gcashNumber: gcashNumber,
-      referenceNumber: referenceNumber
-        <div>
-            
-            <h4>Gcash Name: Lyka Monreal</h4>
-            <h5>Number: 09453500095</h5>
-            <div class="input_group">
-                <div class="input_box">
-                    <input type="tel" name="Reference number" class="name" placeholder="Reference Number (Leave it blank if you chose COD)" class="gcash-inputs">
-                    
-                </div>
-            </div>
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => {
-    if (response.ok) {
-      // Handle successful payment response
-      alert("Payment submitted successfully!");
+  document.getElementById("payment_method").addEventListener("change", function() {
+    var gcashDiv = document.getElementById("gcash_reference");
+    if (this.value === "gcash") {
+      gcashDiv.style.display = "block";
+      document.getElementById("reference_number").setAttribute("required", "true");
     } else {
-      // Handle error response
-      alert("Payment failed. Please try again.");
+      gcashDiv.style.display = "none";
+      document.getElementById("reference_number").removeAttribute("required");
     }
-  })
-  .catch(error => {
-    // Handle network error
-    alert("An error occurred. Please try again later.");
   });
-});
 </script>
 
 </body>
