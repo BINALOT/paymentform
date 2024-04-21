@@ -1,66 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Form</title>
-        <link rel="stylesheet" href="payment.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCash Payment</title>
 </head>
-                
 <body>
-        <div class="container">
-        <div class="navbar">
-            <a href="https://binalot.github.io/HMP/Homepage.html">
-          <img src="logo11.jpg" class="logo">
-          
-        </div>
-    <div class="wrapper">
-    <h2>Payment Information</h2>
-    <form action="/process_payment" method="post">
-        <label for="fname">First Name:</label><br>
-        <input type="text" id="fname" name="fname" required><br><br>
-        
-        <label for="lname">Last Name:</label><br>
-        <input type="text" id="lname" name="lname" required><br><br>
-        
-        <label for="address">Address:</label><br>
-        <input type="text" id="address" name="address" required><br><br>
-        
-        <label for="contact">Contact Number:</label><br>
-        <input type="tel" id="contact" name="contact" required><br><br>
-        
-        <input type="radio" id="gcash" name="payment_method" value="gcash">
-        <label for="gcash">GCash</label><br>
-        
-        <input type="radio" id="cod" name="payment_method" value="cod">
-        <label for="cod">Cash on Delivery (COD)</label><br><br>
-        
-        <label for="ref_num">Reference Number (if using GCash):</label><br>
-        <input type="text" id="ref_num" name="ref_num"><br><br>
-        
-        <input type="submit" value="Submit">
-                   <h4>Gcash Name: Lyka Monreal</h4>
-            <h5>Number: 09453500095</h5>
-            <div class="input_group">
-                <div class="input_box">
-                    <input type="tel" name="Reference number" class="name" placeholder="Reference Number (Leave it blank if you chose COD)" class="gcash-inputs">
-                    
-                </div>
-            </div>
-            <div class="input_group">
-                <div class="input_box">
-                    <input type="tel" name="name of gcash" class="name" placeholder="Name of Gcash (Leave it blank if you chose COD)" class="gcash-inputs">
-                    
-                </div>
-            </div>
-            
-           
-            <div class="input_group">
-                <div class="input_box">
-                    <span></span>
-                    <input type="submit" value="Send">
-                </div>
-            </div
-    </form>
+<h2>GCash Payment Details</h2>
+<form id="paymentForm">
+  <label for="firstName">First Name:</label><br>
+  <input type="text" id="firstName" name="firstName" required><br><br>
+  
+  <label for="lastName">Last Name:</label><br>
+  <input type="text" id="lastName" name="lastName" required><br><br>
+  
+  <label for="contactNumber">Contact Number:</label><br>
+  <input type="tel" id="contactNumber" name="contactNumber" required pattern="[0-9]{11}" placeholder="11-digit phone number"><br><br>
+  
+  <label for="gcashNumber">GCash Number:</label><br>
+  <input type="text" id="gcashNumber" name="gcashNumber" required><br><br>
+  
+  <label for="referenceNumber">Reference Number:</label><br>
+  <input type="text" id="referenceNumber" name="referenceNumber" required><br><br>
+  
+  <button type="submit">Submit Payment</button>
+</form>
+
+<script>
+document.getElementById("paymentForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  // Collect form data
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+  var contactNumber = document.getElementById("contactNumber").value;
+  var gcashNumber = document.getElementById("gcashNumber").value;
+  var referenceNumber = document.getElementById("referenceNumber").value;
+  
+  // Send data to GCash processing backend
+  // Example: Use fetch API to send data to GCash endpoint
+  fetch('gcash_payment_endpoint', {
+    method: 'POST',
+    body: JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+      contactNumber: contactNumber,
+      gcashNumber: gcashNumber,
+      referenceNumber: referenceNumber
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      // Handle successful payment response
+      alert("Payment submitted successfully!");
+    } else {
+      // Handle error response
+      alert("Payment failed. Please try again.");
+    }
+  })
+  .catch(error => {
+    // Handle network error
+    alert("An error occurred. Please try again later.");
+  });
+});
+</script>
+
 </body>
 </html>
